@@ -3,7 +3,7 @@
 ## Identificação
 - **Nome:** Ana Margarida Pires
 - **Número de Aluno:** A96060
-- **Foto:** ![GitHub Profile](https://github.com/0801margarida.jpeg)
+- **Foto:** ![GitHub Profile](https://github.com/0801margarida.png)
 
 ---
 
