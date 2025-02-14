@@ -1,0 +1,3 @@
+10 On 5 Off 3 On 7 = Off 2 4 On 6 =
+100 On 20 Off 5 On 10 = Off 30 On 40 =
+Off 200 on 35 15 off 10 =

@@ -1,6 +1,6 @@
 # Somador On/Off
 
-## Autor
+## Autor(a)
 
 Ana Margarida Pires, A96060
 
