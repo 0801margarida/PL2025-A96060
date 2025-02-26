@@ -46,12 +46,13 @@ select ?home ?desc where {
 - **Output:**
 
     O lexer produz uma lista de tokens, onde cada token é representado por um tuplo contendo o tipo do token e o seu valor.
-    
+
 ## Resultados
 
 **Input:**
 
-'''
+```
+consulta = '''
 select ?home ?desc where {
     ?s a dbo:MusicalArtist.
     ?s foaf:name "Chuck Berry"@en .
@@ -60,6 +61,7 @@ select ?home ?desc where {
     ?w dbo:abstract ?desc
 } LIMIT 1000
 '''
+```
 
 **Output:**
 
