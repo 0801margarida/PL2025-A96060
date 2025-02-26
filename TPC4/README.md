@@ -23,7 +23,8 @@ select ?home ?desc where {
 ```
 # Funcionalidades do Lexer:
 
-- Identificação de Tokens:
+- **Identificação de Tokens:**
+
     Palavras-chave: select, where, LIMIT, a.
 
     Identificadores: ?s, ?home, dbo:MusicalArtist, foaf:name, etc.
@@ -36,13 +37,16 @@ select ?home ?desc where {
 
     Operadores: =.
 
-- Uso de Expressões Regulares:
+- **Uso de Expressões Regulares:**
+
     O lexer utiliza regex para reconhecer os padrões de cada tipo de token.
 
     Os padrões são definidos numa lista de tuplos, onde cada tuplo contém o nome do token e o respetivo padrão regex.
 
-- Output:
+- **Output:**
+
     O lexer produz uma lista de tokens, onde cada token é representado por um tuplo contendo o tipo do token e o seu valor.
+    
 ## Resultados
 
 **Input:**
