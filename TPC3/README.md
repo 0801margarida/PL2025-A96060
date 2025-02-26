@@ -6,7 +6,7 @@ Ana Margarida Pires, A96060
 
 ## Resumo
 
-Este projeto é um conversor de Markdown para HTML em Python. Ele processa texto Markdown e converte-o para a sua correspondente representação HTML, suportando cabeçalhos, negrito, itálico, listas numeradas e links.
+Este projeto é um conversor de Markdown para HTML em Python. Ele processa textos no formato em Markdown e converte para a sua correspondente representação em HTML, suportando cabeçalhos, negrito, itálico, listas numeradas e links.
 
 ## Descrição
 
@@ -16,13 +16,13 @@ O programa percorre linha à linha do texto Markdown e identifica padrões espec
 - **Listas numeradas**: Converte listas numeradas (`1. item`) em elementos `<ol><li></li></ol>`.
 - **Links**: Transforma `[texto](url)` em `<a href='url'>texto</a>`.
 
-O código usa expressões regulares para identificar e substituir elementos Markdown por suas versões HTML correspondentes.
+O código usa expressões regulares para identificar e substituir elementos Markdown pelas versões en HTML correspondentes.
 
 ## Resultados
 
-O programa recebe um texto Markdown como entrada e gera um HTML formatado como saída. Exemplo:
+O programa recebe um texto Markdown como input e gera um HTML formatado como output. Exemplo:
 
-**Entrada:**
+**Input:**
 ```
 # Exemplo
 Este é um **exemplo** e um *teste*.
@@ -32,7 +32,7 @@ Este é um **exemplo** e um *teste*.
 Como pode ser consultado em [página da UC](http://www.uc.pt)
 ```
 
-**Saída:**
+**Output:**
 ```
 <h1>Exemplo</h1>
 <p>Este é um <b>exemplo</b> e um <i>teste</i>.</p>

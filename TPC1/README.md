@@ -18,4 +18,20 @@ No final, os resultados obtidos são impressos no ecrã.
 
 ## Resultados
 
-O programa executa corretamente a soma condicional, garantindo que os números só sejam somados quando o estado estiver `On`. Isto pode ser verificado pelos resultados que são apresentados no terminal, assim que se corre o programa.
+O programa executa corretamente a soma condicional, garantindo que os números só sejam somados quando o estado estiver `On`. 
+
+**Input:**
+```
+10 On 5 Off 3 On 7 = Off 2 4 On 6 =
+100 On 20 Off 5 On 10 = Off 30 On 40 =
+Off 200 on 35 15 off 10 =
+```
+
+**Output:**
+```
+22
+6
+130
+40
+50
+```
