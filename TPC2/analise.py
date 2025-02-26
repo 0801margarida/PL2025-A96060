@@ -17,7 +17,7 @@ def parse_csv(file_path):
     for line in lines[1:]:
         if line.strip():
             # Usar regex para dividir por ponto e vírgula, considerando campos entre aspas
-            row = re.split(r';(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)', line)
+            row = re.split(r"(?s)([^;]+);(\".*?\");([^;]+);([^;]+);([^;]+);([^;]+);([^;]+)\n", line)
             if len(row) == len(header):
                 rows.append(dict(zip(header, row)))
     
