@@ -1,8 +1,15 @@
 Renascimento:
   - Estampes
+
 Medieval:
   - Impromptu, Op. 29
   - Mazurkas, Op. 30
   - Serenade for Strings
+  - clarinet and piano
+
 Contemporâneo:
   - Impromptu, Op. 36
+
+Século XX:
+  - poems
+
