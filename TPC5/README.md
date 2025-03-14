@@ -16,7 +16,7 @@ A aplicação funciona como um sistema interativo baseado em comandos. O stock d
 2. **Inserção de moedas**: O utilizador pode inserir moedas de diferentes valores para acumular saldo.
 3. **Seleção de produtos**: O utilizador pode escolher um produto, desde que tenha saldo suficiente e haja stock disponível.
 4. **Devolução de troco**: Ao sair, a máquina devolve o troco de forma otimizada.
-5. **Persistência de dados**: O stock é armazenado e atualizado em um ficheiro JSON para manter os dados entre execuções.
+5. **Persistência de dados**: O stock é armazenado e atualizado num ficheiro JSON para manter os dados entre execuções.
 6. **Adição de produtos**: Permite a reposição do stock ou a adição de novos produtos através de comandos específicos.
 
 ## Resultados
