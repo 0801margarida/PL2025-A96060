@@ -1,93 +1,69 @@
-def ler_csv(nome_arquivo):
-    with open(nome_arquivo, 'r', encoding='utf-8') as arquivo:
-        linhas = arquivo.readlines()
+import re
+import sys
+
+def read_csv(file):
+    with open(file, "r", encoding="utf-8") as f:
+        header = f.readline()  # Read and discard the first line (header)
+        content = f.read()  # Read the remaining conten
+
+    headers = re.findall(r'[^;]+', header.strip())
+    data = re.findall(r"(?s)([^;]+);(\".*?\");([^;]+);([^;]+);([^;]+);([^;]+);([^;]+)\n", content)
+
+    for piece in data:
+        piece = list(piece)
+        for value in piece:
+            value = value.strip()
+
+    return headers, data
+
+
+def process_data(file):
+    header, data = read_csv(file)
     
-    # Extrair o cabeçalho
-    cabecalho = linhas[0].strip().split(';')
-    num_colunas = len(cabecalho)  # Número de colunas esperado
+    try:
+        idx_composer = header.index("compositor")
+        idx_period = header.index("periodo")
+        idx_title = header.index("nome")
+    except ValueError:
+        print("Error: Missing headers in csv.")
+        return
     
-    # Processar as linhas de dados
-    dados = []
-    for linha in linhas[1:]:
-        valores = linha.strip().split(';')
+    composers = sorted(set(line[idx_composer] for line in data if line[idx_composer]))
+    
+    period_dist = {}
+    pieces_by_period = {}
+
+    for line in data:
+        if len(line) <= max(idx_composer, idx_period, idx_title):
+            continue
         
-        # Verificar se o número de valores corresponde ao número de colunas
-        if len(valores) != num_colunas:
-            print(f"Aviso: Linha ignorada (número incorreto de colunas): {linha}")
-            continue  # Ignora esta linha e passa para a próxima
+        period = line[idx_period]
+        title = line[idx_title]
         
-        # Criar um dicionário para cada obra
-        obra = {}
-        for i, coluna in enumerate(cabecalho):
-            obra[coluna] = valores[i]
-        dados.append(obra)
+        if period:
+            period_dist[period] = period_dist.get(period, 0) + 1
+            
+            if period not in pieces_by_period:
+                pieces_by_period[period] = []
+            pieces_by_period[period].append(title)
     
-    return dados
-
-def lista_compositores(dados):
-    compositores = set()
-    for obra in dados:
-        if 'compositor' in obra:  # Verifica se a chave 'compositor' existe
-            compositores.add(obra['compositor'])
-    return sorted(compositores)
-
-def distribuicao_por_periodo(dados):
-    distribuicao = {}
-    for obra in dados:
-        periodo = obra.get('periodo', 'Desconhecido')  # Usa 'Desconhecido' se a chave não existir
-        if periodo in distribuicao:
-            distribuicao[periodo] += 1
-        else:
-            distribuicao[periodo] = 1
-    return distribuicao
-
-def titulos_por_periodo(dados):
-    titulos_por_periodo = {}
-    for obra in dados:
-        periodo = obra.get('periodo', 'Desconhecido')  # Usa 'Desconhecido' se a chave não existir
-        titulo = obra.get('nome', 'Sem título')  # Usa 'Sem título' se a chave não existir
-        if periodo in titulos_por_periodo:
-            titulos_por_periodo[periodo].append(titulo)
-        else:
-            titulos_por_periodo[periodo] = [titulo]
-    for periodo in titulos_por_periodo:
-        titulos_por_periodo[periodo].sort()
-    return titulos_por_periodo
-
-def salvar_compositores_ordenados(compositores, nome_arquivo):
-    with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
-        for compositor in compositores:
-            arquivo.write(f"{compositor}\n")
-
-def salvar_distribuicao_por_periodo(distribuicao, nome_arquivo):
-    with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
-        for periodo, quantidade in distribuicao.items():
-            arquivo.write(f"{periodo}: {quantidade} obras\n")
-
-def salvar_titulos_por_periodo(titulos_por_periodo, nome_arquivo):
-    with open(nome_arquivo, 'w', encoding='utf-8') as arquivo:
-        for periodo, titulos in titulos_por_periodo.items():
-            arquivo.write(f"{periodo}:\n")
-            for titulo in titulos:
-                arquivo.write(f"  - {titulo}\n")
-            arquivo.write("\n")  # Linha em branco para separar os períodos
-
-def main():
-    dados = ler_csv('obras.csv')
+    for period in pieces_by_period:
+        pieces_by_period[period].sort()
     
-    # 1. Lista ordenada alfabeticamente dos compositores musicais
-    compositores = lista_compositores(dados)
-    salvar_compositores_ordenados(compositores, 'compositores_ordenados.txt')
-    
-    # 2. Distribuição das obras por período
-    distribuicao = distribuicao_por_periodo(dados)
-    salvar_distribuicao_por_periodo(distribuicao, 'distribuicao_por_periodo.txt')
-    
-    # 3. Dicionário com listas alfabéticas de títulos por período
-    titulos_por_periodo_dict = titulos_por_periodo(dados)
-    salvar_titulos_por_periodo(titulos_por_periodo_dict, 'titulos_por_periodo.txt')
+    return composers, period_dist, pieces_by_period
 
-    print("Arquivos gerados com sucesso!")
-
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    file = sys.argv[1]
+    processed_data = process_data(file)
+    if processed_data:
+        composers, period_dist, pieces_by_period = processed_data
+    
+        print("Lista de Compositores:")
+        print(composers)
+        
+        print("\nDistribuição de Obras por Período:")
+        print(period_dist)
+        
+        print("\nDicionário de Obras por Período:")
+        for periodo, obras in pieces_by_period.items():
+            print(f"{periodo}: {obras}")
